@@ -1,0 +1,25 @@
+{
+	"manifest_version": "ext-v1",
+	"name": "TLDraw:- A very good whiteboard",
+	"short_name": "TLDraw",
+	"version": "1.0.0",
+	"description": "An online whiteboard that can be embedded in any application",
+	"author": "EXT, Inc.",
+	"homepage_url": "https://github.com/tldraw/tldraw",
+	"icons": {
+		"128": "icons/icon-1024.png",
+		"background": "icons/icon-background.png",
+		"banner": "icons/icon-banner.png"
+	},
+	"scripts": [
+		"main.js"
+	],
+	"modules": {
+		"console": {},
+		"runtime": {},
+		"tabs": {},
+		"windows": {},
+		"webviews": {},
+		"websessions":{}
+	}
+}
