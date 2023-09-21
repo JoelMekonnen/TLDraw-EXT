@@ -9,17 +9,38 @@
 	"icons": {
 		"128": "icons/icon-1024.png",
 		"background": "icons/icon-background.png",
-		"banner": "icons/icon-banner.png"
+		"banner": "icons/icon-banner.png",
+		"128-dark": "icons/icon-128-dark.png",
+		"banner-dark":"icons/icon-banner-dark.png",
+		"background-dark": "icons/icon-background-dark.png"
 	},
 	"scripts": [
 		"main.js"
 	],
 	"modules": {
-		"console": {},
-		"runtime": {},
-		"tabs": {},
-		"windows": {},
-		"webviews": {},
-		"websessions":{}
+		"console": {
+			"permissions": ["*"],
+			"module_version": "1.0.1"
+		},
+		"runtime": {
+			"permissions": ["*"],
+			"module_version": "1.2.1"
+		},
+		"tabs": {
+			"permissions": ["*"],
+			"module_version": "1.1.0"
+		},
+		"windows": {
+			"permissions": ["*"],
+			"module_version": "1.1.0"
+		},
+		"webviews": {
+			"permissions": ["*"],
+			"module_version": "1.0.2"
+		},
+		"websessions": {
+			"permissions": ["*"],
+			"module_version": "1.0.1"
+		}
 	}
 }

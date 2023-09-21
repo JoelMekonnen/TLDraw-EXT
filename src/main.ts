@@ -80,18 +80,12 @@ ext.runtime.onExtensionClick.addListener(async () => {
     } else {
       await ext.webviews.executeJavaScript(webview!.id, ` window.dispatchEvent(new Event('setLightMode'))`)
     }
-    await ext.webviews.loadFile(webview.id, 'TLDraw-folder/index.html')
+    await ext.webviews.loadFile(webview.id, 'index.html')
     await ext.webviews.attach(webview.id, windows.id)
     await ext.webviews.setBounds(webview.id, { x: 0, y: 0, width: size.width, height: size.height })
     await ext.webviews.setAutoResize(webview.id, { width: true, height: true })
     // then lets listen for a change
-    ext.windows.onUpdatedDarkMode.addListener(async (event, detail)  => {
-            if(detail.platform) {
-              await ext.webviews.executeJavaScript(webview!.id, ` window.dispatchEvent(new Event('setDarkMode'))`)
-            } else {
-              await ext.webviews.executeJavaScript(webview!.id, ` window.dispatchEvent(new Event('setLightMode'))`)
-            }
-    })
+   
    
     // if an index is free to use repopulate it 
     if(isFound) {
@@ -104,6 +98,16 @@ ext.runtime.onExtensionClick.addListener(async () => {
       // if there is no free index push it at the end
       tlPropArray.push(new TLProps(windows, tab, webview, true)) // add the prop information into the array
     } 
+    ext.windows.onUpdatedDarkMode.addListener(async (event, detail)  => {
+         tlPropArray.forEach(async (props) => {
+          if(detail.platform) {
+            await ext.webviews.executeJavaScript(props.webviewObject!.id, ` window.dispatchEvent(new Event('setDarkMode'))`)
+          } else {
+            await ext.webviews.executeJavaScript(props.webviewObject!.id, ` window.dispatchEvent(new Event('setLightMode'))`)
+          }
+         })
+    
+})
     isFound = false;
     foundIndex = -1
   } catch (error) {
@@ -162,6 +166,7 @@ ext.windows.onClosed.addListener(async (event) => {
       if(props.windowObject!.id == event.id) {
              await ext.tabs.remove(props.tabObject!.id)
              await ext.webviews.remove(props.webviewObject!.id)   
+            //  await ext.windows.onUpdatedDarkMode.removeListener()
              props.tabObject = null
              props.windowObject = null
              props.webviewObject  = null
