@@ -98,22 +98,22 @@ ext.runtime.onExtensionClick.addListener(async () => {
       // if there is no free index push it at the end
       tlPropArray.push(new TLProps(windows, tab, webview, true)) // add the prop information into the array
     } 
-    ext.windows.onUpdatedDarkMode.addListener(async (event, detail)  => {
-         tlPropArray.forEach(async (props) => {
-          if(detail.platform) {
-            await ext.webviews.executeJavaScript(props.webviewObject!.id, ` window.dispatchEvent(new Event('setDarkMode'))`)
-          } else {
-            await ext.webviews.executeJavaScript(props.webviewObject!.id, ` window.dispatchEvent(new Event('setLightMode'))`)
-          }
-         })
-    
-})
     isFound = false;
     foundIndex = -1
   } catch (error) {
     // Print error
     console.error('ext.runtime.onExtensionClick', JSON.stringify(error))
   }
+})
+ext.windows.onUpdatedDarkMode.addListener(async (event, detail)  => {
+  tlPropArray.forEach(async (props) => {
+   if(detail.platform) {
+     await ext.webviews.executeJavaScript(props.webviewObject!.id, ` window.dispatchEvent(new Event('setDarkMode'))`)
+   } else {
+     await ext.webviews.executeJavaScript(props.webviewObject!.id, ` window.dispatchEvent(new Event('setLightMode'))`)
+   }
+  })
+
 })
 // Tab was clicked
 ext.tabs.onClicked.addListener(async (event) => {
